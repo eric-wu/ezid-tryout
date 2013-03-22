@@ -34,12 +34,12 @@ def create_metadata(creator, title, target):
     return metadata
 
 def create_doi(cookie):
-    random_str = random_string()
-    request = urllib2.Request('http://n2t.net/ezid/id/doi:10.5072/FK2.' + random_str)
+    doi = 'syn1720822.1'
+    request = urllib2.Request('http://n2t.net/ezid/id/doi:10.5072/FK2.' + doi)
     request.get_method = lambda: 'PUT'
     request.add_header("Cookie", cookie)
     request.add_header("Content-Type", "text/plain; charset=UTF-8")
-    request.add_data(create_metadata('Wu, Eric', random_str, 'http://synapse.sagebase.com'))
+    request.add_data(create_metadata('Wu, Eric', 'Python Random String', 'https://synapse.prod.sagebase.org/#!Synapse:syn1720822/version/1'))
     try:
         start = time.time()
         response = urllib2.urlopen(request)
@@ -51,6 +51,4 @@ def create_doi(cookie):
         print e.code, e.msg
         print e.fp.read()
 
-cookie = login('apitest', 'apitest')
-create_doi(cookie)
 
